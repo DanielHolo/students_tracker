@@ -1,4 +1,5 @@
 from datetime import datetime
+from faker import Faker
 
 from django.db import models
 
@@ -23,10 +24,12 @@ class Student(models.Model):
 
     @classmethod
     def generate_student(cls):
-        student = cls(first_name='D',
-                      last_name='K',
+        fake = Faker()
+        student = cls(first_name=fake.first_name(),
+                      last_name=fake.last_name(),
                       birth_date=datetime.now().date(),
-                      email='wqeqd@gmail.com',
-                      telephone='123214',
+                      email=fake.email(),
+                      telephone=fake.phone_number(),
                       )
         student.save()
+        return student
