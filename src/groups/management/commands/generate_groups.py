@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
-from students.models import Student
+from groups.models import Group
 
 
 class Command(BaseCommand):
@@ -14,4 +14,4 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         number = int(options.get('number') or 100)
         for _ in range(100):
-            Student.generate_student()
+            Group.generate_group()
