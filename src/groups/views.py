@@ -1,7 +1,8 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 
 from groups.models import Group
+from groups.forms import GroupsAddForm
 
 
 def generate_group(request):
@@ -22,3 +23,17 @@ def groups(request):
     return render(request,
                   'groups_list.html',
                   context={'groups_list': response})
+
+
+def groups_add(request):
+    if request.method == 'POST':
+        form = GroupsAddForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/groups/')
+    else:
+        form = GroupsAddForm()
+
+    return render(request,
+                  'groups_add.html',
+                  context={'form': form})
