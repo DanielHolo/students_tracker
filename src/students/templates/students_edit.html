@@ -5,8 +5,8 @@
     <title>Title</title>
 </head>
 <body>
-ADD STUDENT
-<form action="{% url 'students-add' %}" method="post">
+EDIT STUDENT
+<form action="{% url 'students-edit' pk %}" method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <input name="submit" type="submit">
