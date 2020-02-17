@@ -3,12 +3,15 @@ from django.core.mail import send_mail
 from django.conf import settings
 from students.models import Student
 import logging
+import django_tables2 as tables
 
 
 class StudentsAddForm(ModelForm):
     class Meta:
         model = Student
         fields = '__all__'
+
+
 
 
 class ContactForm(Form):

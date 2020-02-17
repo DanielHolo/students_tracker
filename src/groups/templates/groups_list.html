@@ -1,28 +1,63 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block head  %}
+
+{% block title %}
+    <title>Groups list</title>
+{% endblock title %}
+
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+{% endblock head %}
+
+{% block content %}
 
 <form action="/groups/" method="get">
     <input name="group_name">
     <input name="submit" type="submit">
 </form>
 
-<a href="{% url 'groups-add' %}"> group ADD <br> </a>
+<a href="{% url 'groups-add' %}"> Add group <br> </a>
 
-{% for group in groups %}
-    <a href="{% url 'groups-edit' pk=group.id %}"> groups EDIT </a>
-    {{ group.id }}
-    {{ group.group_name }}
-    {{ group.group_size }}
-    {{ group.group_email }}
-<br>
+<h2>Students list</h2>
 
-{% endfor %}
+<table>
+      <tr>
+    <th>Id</th>
+    <th>Name</th>
+    <th>Size</th>
+    <th>Email</th>
+    <th>Edit group</th>
+      </tr>
+    {% for group in groups %}
+      <tr>
+    <td>{{ group.id }}</td>
+    <td>{{ group.group_name }}</td>
+    <td>{{ group.group_size }}</td>
+    <td>{{ group.group_email }}</td>
+    <td><a href="{% url 'groups-edit' pk=group.id %}"> Edit </a></td>
+      </tr>
+    {% endfor %}
+</table>
 
 
-</body>
-</html>
+{% endblock content %}
+
+
+
+

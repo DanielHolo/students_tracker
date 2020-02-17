@@ -1,26 +1,78 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block head  %}
+
+{% block title %}
+    <title>Teachers list</title>
+{% endblock title %}
+
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+{% endblock head %}
+
+{% block content %}
 
 <form action="/teachers/" method="get">
     <input name="first_name">
     <input name="submit" type="submit">
 </form>
 
-<a href="{% url 'teachers-add' %}"> teacher ADD <br> </a>
+<a href="{% url 'teachers-add' %}"> Add teacher <br> </a>
 
-{% for teacher in teachers %}
-    <a href="{% url 'teachers-edit' pk=teacher.id %}"> teacher EDIT </a>
-    {{ teacher.id }}
-{{ teacher.first_name }}
-{{ teacher.last_name }}<br>
+<h2>Students list</h2>
 
-{% endfor %}
+<table>
+      <tr>
+    <th>Id</th>
+    <th>First name</th>
+    <th>Last name</th>
+    <th>Email</th>
+    <th>Edit teacher</th>
+      </tr>
+    {% for teacher in teachers %}
+      <tr>
+    <td>{{ teacher.id }}</td>
+    <td>{{ teacher.first_name }}</td>
+    <td>{{ teacher.last_name }}</td>
+    <td>{{ teacher.email }}</td>
+    <td><a href="{% url 'teachers-edit' pk=teacher.id %}"> Edit </a></td>
+      </tr>
+    {% endfor %}
+</table>
 
 
-</body>
-</html>
+{% endblock content %}
+
+<!--<form action="/teachers/" method="get">-->
+<!--    <input name="first_name">-->
+<!--    <input name="submit" type="submit">-->
+<!--</form>-->
+
+<!--<a href="{% url 'teachers-add' %}"> teacher ADD <br> </a>-->
+
+<!--{% for teacher in teachers %}-->
+<!--    <a href="{% url 'teachers-edit' pk=teacher.id %}"> teacher EDIT </a>-->
+<!--    {{ teacher.id }}-->
+<!--{{ teacher.first_name }}-->
+<!--{{ teacher.last_name }}<br>-->
+
+<!--{% endfor %}-->
+
+
+<!--</body>-->
+<!--</html>-->

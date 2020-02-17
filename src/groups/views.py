@@ -21,7 +21,6 @@ def groups(request):
                                    Q(group_size__icontains=fn) |
                                    Q(group_email__icontains=fn))
 
-
     return render(request,
                   'groups_list.html',
                   context={'groups': queryset})

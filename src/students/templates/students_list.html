@@ -1,30 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ title }}</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block head  %}
+
+{% block title %}
+    <title>Students list</title>
+{% endblock title %}
+
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+{% endblock head %}
+
+{% block content %}
 
 <form action="/students/" method="get">
     <input name="first_name">
     <input name="submit" type="submit">
 </form>
 
+<a href="{% url 'students-add' %}"> Add student <br> </a>
+
+<h2>Students list</h2>
+
+<table>
+      <tr>
+    <th>Id</th>
+    <th>First name</th>
+    <th>Last name</th>
+    <th>Email</th>
+    <th>Edit student</th>
+      </tr>
+    {% for student in students %}
+      <tr>
+    <td>{{ student.id }}</td>
+    <td>{{ student.first_name }}</td>
+    <td>{{ student.last_name }}</td>
+    <td>{{ student.email }}</td>
+    <td><a href="{% url 'students-edit' pk=student.id %}"> Edit </a></td>
+      </tr>
+    {% endfor %}
+</table>
 
 
-<a href="{% url 'students-add' %}"> student ADD <br> </a>
-
-{% for student in students %}
-    <a href="{% url 'students-edit' pk=student.id %}"> student EDIT </a>
-    {{ student.id }}
-{{ student.email }}
-{{ student.last_name }}<br>
-
-{% endfor %}
-
-
-
-
-</body>
-</html>
+{% endblock content %}
