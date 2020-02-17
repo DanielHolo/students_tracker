@@ -11,7 +11,16 @@
     <input name="submit" type="submit">
 </form>
 
-{{ teachers_list|safe }}
+<a href="{% url 'teachers-add' %}"> teacher ADD <br> </a>
+
+{% for teacher in teachers %}
+    <a href="{% url 'teachers-edit' pk=teacher.id %}"> teacher EDIT </a>
+    {{ teacher.id }}
+{{ teacher.first_name }}
+{{ teacher.last_name }}<br>
+
+{% endfor %}
+
 
 </body>
 </html>

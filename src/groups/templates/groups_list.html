@@ -11,7 +11,18 @@
     <input name="submit" type="submit">
 </form>
 
-{{ groups_list|safe }}
+<a href="{% url 'groups-add' %}"> group ADD <br> </a>
+
+{% for group in groups %}
+    <a href="{% url 'groups-edit' pk=group.id %}"> groups EDIT </a>
+    {{ group.id }}
+    {{ group.group_name }}
+    {{ group.group_size }}
+    {{ group.group_email }}
+<br>
+
+{% endfor %}
+
 
 </body>
 </html>

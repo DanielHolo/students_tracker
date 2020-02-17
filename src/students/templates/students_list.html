@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>{{ title }}</title>
 </head>
 <body>
 
@@ -11,7 +11,20 @@
     <input name="submit" type="submit">
 </form>
 
-{{ students_list|safe }}
+
+
+<a href="{% url 'students-add' %}"> student ADD <br> </a>
+
+{% for student in students %}
+    <a href="{% url 'students-edit' pk=student.id %}"> student EDIT </a>
+    {{ student.id }}
+{{ student.email }}
+{{ student.last_name }}<br>
+
+{% endfor %}
+
+
+
 
 </body>
 </html>

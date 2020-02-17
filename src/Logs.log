@@ -1,0 +1,5 @@
+2020-02-12 18:51:08,926 INFO:App - TEACHER, subject - Hello, email - testpython2341@gmail.com
+2020-02-12 18:51:13,455 WARNING:Not Found: /students/
+2020-02-12 18:51:21,949 INFO:App - STUDENT,subject - 4124, email - testpython2341@gmail.com
+2020-02-12 18:51:55,849 INFO:App - STUDENT,subject - Hello, email - testpython2341@gmail.com
+2020-02-12 18:52:11,119 INFO:App - TEACHER, subject - Hello234, email - testpython2341@gmail.com

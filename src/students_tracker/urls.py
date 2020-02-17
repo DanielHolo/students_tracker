@@ -16,16 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from teachers.views import generate_teacher, teachers, teachers_add
 from groups.views import generate_group, groups, groups_add
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('students/', include('students.urls')),
-    path('gen-teach/', generate_teacher),
-    path('teachers/', teachers),
-    path('teachers/add/', teachers_add),
-    path('gen-grp/', generate_group),
-    path('groups/', groups),
-    path('groups/add/', groups_add)
+    path('teachers/', include('teachers.urls')),
+    path('groups/', include('groups.urls')),
 ]
