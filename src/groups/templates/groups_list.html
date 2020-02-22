@@ -43,6 +43,8 @@ tr:nth-child(even) {
     <th>Size</th>
     <th>Email</th>
     <th>Edit group</th>
+    <th>Group head</th>
+    <th>Group curator</th>
       </tr>
     {% for group in groups %}
       <tr>
@@ -51,6 +53,8 @@ tr:nth-child(even) {
     <td>{{ group.group_size }}</td>
     <td>{{ group.group_email }}</td>
     <td><a href="{% url 'groups-edit' pk=group.id %}"> Edit </a></td>
+    <td>{{ group.head.first_name }} {{ group.curator.first_name }}</td>
+    <td>{{ group.curator.first_name}} {{ group.curator.last_name }}</td>
       </tr>
     {% endfor %}
 </table>
