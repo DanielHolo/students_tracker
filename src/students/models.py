@@ -16,6 +16,13 @@ class Student(models.Model):
     def get_info(self):
         return f'{self.first_name} {self.last_name} {self.birth_date} '
 
+    def __str__(self):
+        return f'{self.id} {self.full_name}'
+
+    @property
+    def full_name(self):
+        return f'{self.first_name} {self.last_name}'
+
     @classmethod
     def generate_student(cls):
         fake = Faker()

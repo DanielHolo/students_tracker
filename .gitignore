@@ -2,3 +2,4 @@ __pycache__/
 *.рус
 .idea/
 env/
+settings_local.py
