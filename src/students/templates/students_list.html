@@ -23,6 +23,7 @@ tr:nth-child(even) {
   background-color: #dddddd;
 }
 </style>
+
 {% endblock head %}
 
 {% block content %}
@@ -42,6 +43,7 @@ tr:nth-child(even) {
     <th>First name</th>
     <th>Last name</th>
     <th>Email</th>
+    <th>Student group</th>
     <th>Edit student</th>
       </tr>
     {% for student in students %}
@@ -50,6 +52,7 @@ tr:nth-child(even) {
     <td>{{ student.first_name }}</td>
     <td>{{ student.last_name }}</td>
     <td>{{ student.email }}</td>
+    <td>{{ student.group.group_name }}</td>
     <td><a href="{% url 'students-edit' pk=student.id %}"> Edit </a></td>
       </tr>
     {% endfor %}

@@ -7,10 +7,10 @@ from django.db import models
 class Teacher(models.Model):
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
-    birth_date = models.DateField()
+    birth_date = models.DateField(null=True, blank=True, default=None)
     email = models.EmailField()
     # add avatar TODO
-    telephone = models.CharField(max_length=16)  # clean phone TODO
+    telephone = models.CharField(max_length=255)  # clean phone TODO
     address = models.CharField(max_length=255, null=True, blank=True)
 
     def get_info(self):

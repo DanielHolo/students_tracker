@@ -7,9 +7,9 @@ from django.db import models
 class Group(models.Model):
     group_name = models.CharField(max_length=20)
     group_size = models.CharField(max_length=20)
-    group_creation_date = models.DateField()
+    group_creation_date = models.DateField(null=True, blank=True, default=None)
     group_email = models.EmailField()
-    group_telephone = models.CharField(max_length=16)  # clean phone TODO
+    group_telephone = models.CharField(max_length=255)
 
     def get_info(self):
         return f'{self.group_name} {self.group_size} {self.group_email} '
