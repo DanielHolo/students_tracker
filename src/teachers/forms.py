@@ -3,12 +3,45 @@ from django.core.mail import send_mail
 from django.conf import settings
 from teachers.models import Teacher
 import logging
+from django.core.exceptions import ValidationError
 
 
-class TeachersAddForm(ModelForm):
+class TeacherForm(ModelForm):
+    def clean_email(self):
+        email = self.cleaned_data['email'].lower()
+
+        email_exists = Teacher.objects \
+            .filter(email__iexact=email) \
+            .exclude(email__iexact=self.instance.email)
+        if email_exists.exists():
+            raise ValidationError(f'{email} is already used!')
+        return email
+
+    def clean_telephone(self):
+        telephone = self.cleaned_data['telephone']
+
+        telephone_exists = Teacher.objects \
+            .filter(telephone__iexact=telephone) \
+            .exclude(telephone__iexact=self.instance.telephone)
+
+        if telephone_exists.exists():
+            raise ValidationError(f'{telephone} is already used!')
+
+        if not telephone.isdigit():
+            raise ValidationError(f'{telephone} contains not only numbers')
+        return telephone
+
+
+class TeachersAddForm(TeacherForm):
     class Meta:
         model = Teacher
         fields = '__all__'
+
+
+class TeacherAdminForm(TeacherForm):
+    class Meta:
+        model = Teacher
+        fields = ('id', 'email', 'first_name', 'last_name', 'telephone')
 
 
 class TeacherContactForm(Form):

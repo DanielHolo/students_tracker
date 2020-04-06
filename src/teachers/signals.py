@@ -1,9 +1,9 @@
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
-from students.models import Student
+from teachers.models import Teacher
 
 
-@receiver(pre_save, sender=Student)
+@receiver(pre_save, sender=Teacher)
 def pre_save_student(sender, instance, **kwargs):
     instance.email = instance.email.lower()
     instance.first_name = instance.first_name.capitalize()

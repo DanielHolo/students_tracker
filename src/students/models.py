@@ -9,7 +9,7 @@ class Student(models.Model):
     last_name = models.CharField(max_length=20)
     birth_date = models.DateField(null=True, blank=True, default=None)
     email = models.EmailField(unique=True)
-    telephone = models.CharField(max_length=255)
+    telephone = models.CharField(unique=True, max_length=255)
     address = models.CharField(max_length=255, null=True, blank=True)
     group = models.ForeignKey('groups.Group', null=True, blank=True, on_delete=models.CASCADE)
 

@@ -8,10 +8,13 @@ class Teacher(models.Model):
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
     birth_date = models.DateField(null=True, blank=True, default=None)
-    email = models.EmailField()
+    email = models.EmailField(unique=True)
     # add avatar TODO
-    telephone = models.CharField(max_length=255)  # clean phone TODO
+    telephone = models.CharField(unique=True,max_length=255)  # clean phone TODO
     address = models.CharField(max_length=255, null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
 
     def get_info(self):
         return f'{self.first_name} {self.last_name} {self.email} {self.birth_date} '
@@ -34,3 +37,5 @@ class Teacher(models.Model):
                       )
         teacher.save()
         return teacher
+
+from students.signals import *

@@ -6,17 +6,7 @@ from students.models import Student
 import logging
 
 
-class StudentsAddForm(ModelForm):
-    class Meta:
-        model = Student
-        fields = '__all__'
-
-
-class StudentAdminForm(ModelForm):
-    class Meta:
-        model = Student
-        fields = ('id', 'email', 'first_name', 'last_name', 'group')
-
+class StudentForm(ModelForm):
     def clean_email(self):
         email = self.cleaned_data['email'].lower()
 
@@ -26,6 +16,32 @@ class StudentAdminForm(ModelForm):
         if email_exists.exists():
             raise ValidationError(f'{email} is already used!')
         return email
+
+    def clean_telephone(self):
+        telephone = self.cleaned_data['telephone']
+
+        telephone_exists = Student.objects \
+            .filter(telephone__iexact=telephone) \
+            .exclude(telephone__iexact=self.instance.telephone)
+
+        if telephone_exists.exists():
+            raise ValidationError(f'{telephone} is already used!')
+
+        if not telephone.isdigit():
+            raise ValidationError(f'{telephone} contains not only numbers')
+        return telephone
+
+
+class StudentsAddForm(StudentForm):
+    class Meta:
+        model = Student
+        fields = '__all__'
+
+
+class StudentAdminForm(StudentForm):
+    class Meta:
+        model = Student
+        fields = ('id', 'email', 'first_name', 'last_name', 'group', 'telephone')
 
 
 class ContactForm(Form):
