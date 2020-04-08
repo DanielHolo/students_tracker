@@ -10,7 +10,7 @@ class Teacher(models.Model):
     birth_date = models.DateField(null=True, blank=True, default=None)
     email = models.EmailField(unique=True)
     # add avatar TODO
-    telephone = models.CharField(unique=True,max_length=255)  # clean phone TODO
+    telephone = models.CharField(unique=True, max_length=255)  # clean phone TODO
     address = models.CharField(max_length=255, null=True, blank=True)
 
     def save(self, *args, **kwargs):
@@ -37,5 +37,6 @@ class Teacher(models.Model):
                       )
         teacher.save()
         return teacher
+
 
 from students.signals import *

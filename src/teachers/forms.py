@@ -1,9 +1,9 @@
 from django.forms import Form, ModelForm, EmailField, CharField
-from django.core.mail import send_mail
 from django.conf import settings
 from teachers.models import Teacher
 import logging
 from django.core.exceptions import ValidationError
+from teachers.tasks import send_mail_async
 
 
 class TeacherForm(ModelForm):
@@ -49,15 +49,16 @@ class TeacherContactForm(Form):
     subject = CharField()
     text = CharField()
 
+    logging.basicConfig(filename="Logs.log",
+                        format='%(asctime)s %(levelname)s:%(message)s')
+
     def save(self):
         data = self.cleaned_data
         subject = data['subject']
-        messege = data['text']
+        message = data['text']
         email_from = data['email']
         recipient_list = [settings.EMAIL_HOST_USER, ]
-        send_mail(subject, messege, email_from, recipient_list, fail_silently=False)
 
-        logging.basicConfig(filename="Logs.log",
-                            level=logging.DEBUG,
-                            format='%(asctime)s %(levelname)s:%(message)s')
+        send_mail_async.delay(subject, message, email_from, recipient_list)
+
         logging.info(f"App - TEACHER, subject - {subject}, email - {email_from}")

@@ -16,7 +16,7 @@ class Student(models.Model):
     def save(self, *args, **kwargs):
         # self.email = self.email.lower()
         super().save(*args, **kwargs)
-    
+
     def get_info(self):
         return f'{self.first_name} {self.last_name} {self.birth_date} '
 

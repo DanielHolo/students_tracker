@@ -64,7 +64,6 @@ def contact(request):
             return HttpResponseRedirect(reverse('contact'))
     else:
         form = ContactForm()
-
     return render(request,
                   'contact.html',
                   context={'form': form})

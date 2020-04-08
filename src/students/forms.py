@@ -1,8 +1,8 @@
 from django.core.exceptions import ValidationError
 from django.forms import Form, ModelForm, EmailField, CharField
-from django.core.mail import send_mail
 from django.conf import settings
 from students.models import Student
+from students.tasks import send_mail_async
 import logging
 
 
@@ -49,15 +49,19 @@ class ContactForm(Form):
     subject = CharField()
     text = CharField()
 
+    logging.basicConfig(filename="Logs.log",
+                        level=logging.INFO,
+                        format='%(asctime)s %(levelname)s:%(message)s')
+
     def save(self):
         data = self.cleaned_data
         subject = data['subject']
         message = data['text']
         email_from = data['email']
         recipient_list = [settings.EMAIL_HOST_USER, ]
-        send_mail(subject, message, email_from, recipient_list, fail_silently=False)
 
-        logging.basicConfig(filename="Logs.log",
-                            level=logging.DEBUG,
-                            format='%(asctime)s %(levelname)s:%(message)s')
+        # student = Student.object.get_or_create(email=email_from)
+        # student = Student.object.create(email=email_from)
+        send_mail_async.delay(subject, message, email_from, recipient_list)
+
         logging.info(f"App - STUDENT,subject - {subject}, email - {email_from}")

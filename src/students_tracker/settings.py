@@ -121,6 +121,8 @@ INTERNAL_IPS = [
 
 ]
 
+BROKER_URL = 'django://'
+
 try:
     from students_tracker.settings_local import *
 except ImportError:
