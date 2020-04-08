@@ -59,6 +59,7 @@ class TeacherContactForm(Form):
         email_from = data['email']
         recipient_list = [settings.EMAIL_HOST_USER, ]
 
-        send_mail_async.delay(subject, message, email_from, recipient_list)
+        student = Teacher.objects.get_or_create(email=email_from)[0]
+        send_mail_async.delay(subject, message, student.id, recipient_list)
 
         logging.info(f"App - TEACHER, subject - {subject}, email - {email_from}")

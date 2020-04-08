@@ -60,8 +60,9 @@ class ContactForm(Form):
         email_from = data['email']
         recipient_list = [settings.EMAIL_HOST_USER, ]
 
-        # student = Student.object.get_or_create(email=email_from)
-        # student = Student.object.create(email=email_from)
-        send_mail_async.delay(subject, message, email_from, recipient_list)
+        student = Student.objects.get_or_create(email=email_from)[0]
+        # student = Student.objects.create(email=email_from)
+        send_mail_async.delay(subject, message, recipient_list, student.id)
 
         logging.info(f"App - STUDENT,subject - {subject}, email - {email_from}")
+
