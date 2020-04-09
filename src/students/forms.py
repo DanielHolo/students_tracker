@@ -68,13 +68,14 @@ class ContactForm(Form):
         logging.info(f"App - STUDENT,subject - {subject}, email - {email_from}")
 
 
-class SignUpForm(Form):
-    email = EmailField(help_text='Required')
-
-    class Meta:
-        model = Student
-        fields = ('email',)
-    def save(self):
-        data = self.cleaned_data
-        email = data['email']
-        recipient_list = [settings.EMAIL_HOST_USER, ]
+# class SignUpForm(Form):
+#     email = EmailField(help_text='Required')
+#
+#     class Meta:
+#         model = Student
+#         fields = ('email',)
+#
+#     def save(self):
+#         data = self.cleaned_data
+#         email = data['email']
+#         recipient_list = [settings.EMAIL_HOST_USER, ]

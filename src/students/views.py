@@ -75,40 +75,40 @@ def contact(request):
                   context={'form': form})
 
 
-def sign_up(request):
-    if request.method == 'POST':
-        form = SignUpForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            user.is_active = False
-            user.save()
-            return HttpResponseRedirect(reverse('email'))
-    else:
-        form = SignUpForm()
-    return render(request,
-                  'email.html',
-                  context={'form': form})
+# def sign_up(request):
+#     if request.method == 'POST':
+#         form = SignUpForm(request.POST)
+#         if form.is_valid():
+#             user = form.save()
+#             user.is_active = False
+#             user.save()
+#             return HttpResponseRedirect(reverse('email'))
+#     else:
+#         form = SignUpForm()
+#     return render(request,
+#                   'email.html',
+#                   context={'form': form})
 
 
-def usersignup(request):
-    if request.method == 'POST':
-        form = SignUpForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            user.is_active = False
-            user.save()
-            current_site = get_current_site(request)
-            email_subject = 'Activate Your Account'
-            message = render_to_string('activate_account.html', {
-                'user': user,
-                'domain': current_site.domain,
-                'uid': urlsafe_base64_encode(force_bytes(user.pk)).decode(),
-                'token': account_activation_token.make_token(user),
-            })
-            to_email = form.cleaned_data.get('email')
-            email = EmailMessage(email_subject, message, to=[to_email])
-            email.send()
-            return HttpResponse('We have sent you an email, please confirm your email address to complete registration')
-    else:
-        form = SignUpForm()
-    return render(request, 'signup.html', {'form': form})
+# def usersignup(request):
+#     if request.method == 'POST':
+#         form = SignUpForm(request.POST)
+#         if form.is_valid():
+#             user = form.save()
+#             user.is_active = False
+#             user.save()
+#             current_site = get_current_site(request)
+#             email_subject = 'Activate Your Account'
+#             message = render_to_string('activate_account.html', {
+#                 'user': user,
+#                 'domain': current_site.domain,
+#                 'uid': urlsafe_base64_encode(force_bytes(user.id)).decode(),
+#                 'token': account_activation_token.make_token(user),
+#             })
+#             to_email = form.cleaned_data.get('email')
+#             email = EmailMessage(email_subject, message, to=[to_email])
+#             email.send()
+#             return HttpResponse('We have sent you an email, please confirm your email address to complete registration')
+#     else:
+#         form = SignUpForm()
+#     return render(request, 'signup.html', {'form': form})
