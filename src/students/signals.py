@@ -11,3 +11,10 @@ def pre_save_student(sender, instance, **kwargs):
 
     if instance.id is None:
         print('Object is created')
+
+
+@receiver(post_save, sender=Student)
+def update_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Student.objects.create(user=instance)
+        instance.profile.save()

@@ -39,5 +39,6 @@ class Student(models.Model):
         student.save()
         return student
 
+    
 
 from students.signals import *

@@ -4,6 +4,7 @@ from django.conf import settings
 from students.models import Student
 from students.tasks import send_mail_async
 import logging
+from django.contrib.auth.forms import UserCreationForm
 
 
 class StudentForm(ModelForm):
@@ -66,3 +67,14 @@ class ContactForm(Form):
 
         logging.info(f"App - STUDENT,subject - {subject}, email - {email_from}")
 
+
+class SignUpForm(Form):
+    email = EmailField(help_text='Required')
+
+    class Meta:
+        model = Student
+        fields = ('email',)
+    def save(self):
+        data = self.cleaned_data
+        email = data['email']
+        recipient_list = [settings.EMAIL_HOST_USER, ]
