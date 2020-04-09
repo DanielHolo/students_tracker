@@ -7,7 +7,7 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 
 from students.models import Student
-from students.forms import StudentsAddForm, ContactForm, SignUpForm
+from students.forms import StudentsAddForm, ContactForm #, SignUpForm
 from students.tokens import account_activation_token
 from django.core.mail import EmailMessage
 
