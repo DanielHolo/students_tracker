@@ -2,6 +2,7 @@ from datetime import datetime
 from faker import Faker
 
 from django.db import models
+from students import model_choices as mch
 
 
 class Student(models.Model):
@@ -39,6 +40,13 @@ class Student(models.Model):
         student.save()
         return student
 
-    
+
+class Logger(models.Model):
+    path = models.CharField(max_length=128)
+    method = models.PositiveSmallIntegerField(choices=mch.METHOD_CHOICES)
+    time_delta = models.DecimalField(max_digits=5, decimal_places=3)
+    user_id = models.IntegerField(null=True, blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+
 
 from students.signals import *
