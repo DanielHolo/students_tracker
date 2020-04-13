@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from celery.schedules import crontab
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
@@ -53,7 +55,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
-    
+
     'students.middleware.LoggerMiddleware',
 
 ]
@@ -125,6 +127,13 @@ INTERNAL_IPS = [
 ]
 
 BROKER_URL = 'django://'
+
+CELERY_BEAT_SCHEDULE = {
+    'task-number-one': {
+        'task': 'students.tasks.delete_old_objects',
+        'schedule': crontab(),
+    }
+}
 
 try:
     from students_tracker.settings_local import *
