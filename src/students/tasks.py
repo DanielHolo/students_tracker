@@ -15,6 +15,10 @@ def send_mail_async(subject, message, recipient_list, student_id):
 
 
 @shared_task
-def delete_old_objects():
-    Logger.objects.filter(created__lte=datetime.now(pytz.utc)-timedelta(days=7)).delete()
+def send_confirmation_mail(mail_subject, message, to_email, recipient_list):
+    send_mail(mail_subject, message, to_email, recipient_list)
 
+
+@shared_task
+def delete_old_objects():
+    Logger.objects.filter(created__lte=datetime.now(pytz.utc) - timedelta(days=7)).delete()

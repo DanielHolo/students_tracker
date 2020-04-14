@@ -1,6 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.forms import Form, ModelForm, EmailField, CharField
 from django.conf import settings
+
 from students.models import Student
 from students.tasks import send_mail_async
 import logging
@@ -69,17 +70,19 @@ class ContactForm(Form):
 
 
 class UserRegistrationForm(ModelForm):
+    email = EmailField(max_length=200, help_text='Required')
+
     class Meta:
         model = User
         fields = ('username', 'email', 'password')
 
-    def save(self, commit=True):
-        instance = super().save(commit=False)
-        instance.set_password(self.cleaned_data['password'])
-        super().save(commit)
+    # def save(self, commit=True):
+    #
+    #     instance = super().save(commit=False)
+    #     instance.set_password(self.cleaned_data['password'])
+    #     super().save(commit)
 
 
 class UserLoginForm(Form):
     username = CharField()
     password = CharField()
-
