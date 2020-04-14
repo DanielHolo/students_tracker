@@ -98,6 +98,7 @@ def custom_login(request):
                                 username=form.cleaned_data['username'],
                                 password=form.cleaned_data['password'])
             login(request, user)
+                
             return HttpResponseRedirect(reverse('contact'))
     else:
         form = user_form()

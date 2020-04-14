@@ -131,7 +131,7 @@ BROKER_URL = 'django://'
 CELERY_BEAT_SCHEDULE = {
     'task-number-one': {
         'task': 'students.tasks.delete_old_objects',
-        'schedule': crontab(),
+        'schedule': crontab(minute=0, hour=0),
     }
 }
 

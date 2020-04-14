@@ -15,8 +15,7 @@ class LoggerMiddleware:
 
         response = self.get_response(request)
 
-        last_user = 'adminadmin@a.com'  # не разобрался как из входа в админку вытянуть username
-        user_id = list(User.objects.filter(username=last_user).values_list('id', flat=True))
+        current_user = request.user
 
         diff = time.time() - start_time
 
@@ -26,7 +25,7 @@ class LoggerMiddleware:
                 path=request.path,
                 method=mch.METHOD_CHOICES_REVERSED[request.method],
                 time_delta=diff,
-                user_id=user_id[0]
+                user_id=current_user.id
 
             )
 
